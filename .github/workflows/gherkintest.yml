@@ -90,9 +90,7 @@ jobs:
           DB_SSL_MODE: disable
       
           FILE_LOCAL: true
-        run: |
-          npm run dev &
-          sleep 5
+        run: make run
 
       # Runs a single command using the runners shell
       - name: Run Gherkin tests
