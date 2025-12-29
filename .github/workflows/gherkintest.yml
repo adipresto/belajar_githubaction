@@ -90,7 +90,9 @@ jobs:
           DB_SSL_MODE: disable
       
           FILE_LOCAL: true
-        run: make run
+        run: |
+          make run &
+          sleep 300   
 
       # Runs a single command using the runners shell
       - name: Run Gherkin tests
