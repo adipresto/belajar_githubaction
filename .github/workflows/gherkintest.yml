@@ -44,6 +44,22 @@ jobs:
       # 
       - uses: mscno/setup-goose@v1
 
+      # Setup .env
+      - name: Setup ENV
+        # Override env to match workflow
+        env:
+          APP_ENV: test
+          APP_PORT: 8190
+      
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USER: test
+          DB_PASSWORD: test
+          DB_NAME: testdb
+          DB_SSL_MODE: disable
+      
+          FILE_LOCAL: true
+
       # Runs a single command using the runners shell
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -65,19 +81,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Start API
-        # Override env to match workflow
-        env:
-          APP_ENV: test
-          APP_PORT: 8190
-      
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_USER: test
-          DB_PASSWORD: test
-          DB_NAME: testdb
-          DB_SSL_MODE: disable
-      
-          FILE_LOCAL: true
         run: |
           npm run dev &
           sleep 5
