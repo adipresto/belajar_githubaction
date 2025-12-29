@@ -54,9 +54,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Migration
+        working-directory: src
         env:
           DATABASE_URL: postgres://test:test@localhost:5432/testdb
-        run: npm run migrate
+        run: make migrate-up
 
       # Runs a single command using the runners shell
       - name: Start API
