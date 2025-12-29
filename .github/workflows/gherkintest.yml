@@ -96,6 +96,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Gherkin tests
+        working-directory: test
         env:
-          BASE_URL: http://localhost:8150
-        run: npm run test:bdd
+          API_URL: http://localhost:8190
+        run: npm test
