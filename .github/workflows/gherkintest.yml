@@ -43,7 +43,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Setup Node
-        working-directory: test
         uses: actions/setup-node@v4
         with:
           node-version: 25.2.0
