@@ -1,0 +1,26 @@
+{
+  "name": "fitbyte-test-case",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "init:ts": "tsc --init",
+    "test": "cucumber-js --require-module ts-node/register/transpile-only --require test/**/*.ts test/features/**/*.feature"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@types/lodash.get": "^4.4.9",
+    "@types/node": "^24.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "dotenv": "^17.2.3",
+    "lodash.get": "^4.4.2",
+    "zod": "^4.1.11"
+  }
+}
