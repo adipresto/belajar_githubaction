@@ -75,6 +75,9 @@ jobs:
           FILE_LOCAL: true
         run: make migrate-up
 
+      - name: Download wait script
+        run: curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+
       # Runs a single command using the runners shell
       - name: Start API
         working-directory: src
@@ -90,7 +93,11 @@ jobs:
           DB_SSL_MODE: disable
       
           FILE_LOCAL: true
-        run: make run
+        run: |
+          chmod +x wait-for-it.sh
+          make run &
+      
+          ./wait-for-it.sh localhost:8190 --timeout=30 --strict -- echo "API available"
 
       # Runs a single command using the runners shell
       - name: Run Gherkin tests
