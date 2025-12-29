@@ -39,7 +39,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 
+
+      # 
+      - uses: mscno/setup-goose@v1
 
       # Runs a single command using the runners shell
       - name: Setup Node
@@ -55,6 +58,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run Migration
         working-directory: src
+        
         env:
           DATABASE_URL: postgres://test:test@localhost:5432/testdb
         run: make migrate-up
