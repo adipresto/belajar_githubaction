@@ -99,4 +99,7 @@ jobs:
         working-directory: test
         env:
           API_URL: http://localhost:8190
-        run: npm test
+          run: |
+            npx cucumber-js "features/**/*.feature" \
+            --require-module ts-node/register/transpile-only \
+            --require "steps/**/*.ts"
