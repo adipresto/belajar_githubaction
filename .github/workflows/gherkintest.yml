@@ -100,6 +100,6 @@ jobs:
         env:
           API_URL: http://localhost:8190
         run: |
-          npx cucumber-js "features/**/*.feature" \
+          npx cucumber-js \
           --require-module ts-node/register/transpile-only \
-          --require "steps/**/*.ts"
+          --require "test/**/*.ts" "test/features/**/*.feature"
