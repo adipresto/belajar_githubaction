@@ -1,2 +1,4 @@
 # Test files are protected
 /test/**  @adipresto
+/.github/** @adipresto
+/.git/** @adipresto
