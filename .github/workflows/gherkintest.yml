@@ -92,7 +92,7 @@ jobs:
           FILE_LOCAL: true
         run: |
           make run &
-          sleep 300   
+          sleep 90 # wait for 90 seconds / 1 minute 30 seconds
 
       # Runs a single command using the runners shell
       - name: Run Gherkin tests
