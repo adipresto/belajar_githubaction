@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/jmoiron/sqlx"
 )
 
 type Claims struct {
@@ -44,7 +45,7 @@ func ParseToken(tokenStr, secret string) (*Claims, error) {
 	return nil, jwt.ErrTokenInvalidClaims
 }
 
-func Middleware(secret string) fiber.Handler {
+func Middleware(secret string, db *sqlx.DB) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
 		if authHeader == "" {
@@ -67,6 +68,15 @@ func Middleware(secret string) fiber.Handler {
 				"error": "invalid or expired token",
 			})
 		}
+
+		// var userID int
+		// query := `SELECT id FROM users WHERE id = $1`
+		// err = db.QueryRowContext(context.Background(), query, claim.ID).Scan(&userID)
+		// if err != nil {
+		// 	return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+		// 		"error": "user not found or not registered",
+		// 	})
+		// }
 
 		c.Locals("id", claim.ID)
 		c.Locals("email", claim.Email)
