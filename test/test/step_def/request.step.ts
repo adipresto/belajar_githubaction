@@ -64,6 +64,24 @@ When("I use {word} payload", function(this: ApiWorld, payloadName: string) {
   this.request.options.body = JSON.stringify(resolved);
 });
 
+// Add value to field
+When(
+  "using {word} payload, I add {word} to {string}",
+  function(this: ApiWorld, payloadName: string, savedPayload: string, path: string) {
+    const payload = payloads[payloadName];
+    if (!payload) throw new Error(`Payload '${payloadName}' not found`);
+
+    const savedValue = this.savedPayload[savedPayload];
+    if (!savedValue) throw new Error(`'${savedPayload}' not found`);
+
+    payload.positive[path] = savedValue;
+
+    const resolved = resolvePayload(payload.positive, this);
+
+    this.request.options.body = JSON.stringify(resolved);
+  },
+);
+
 // Add violations
 When(
   "I inject {word} violations",

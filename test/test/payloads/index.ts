@@ -1,10 +1,22 @@
 import {
   generateRandomEmail,
+  generateRandomName,
   generateRandomPassword,
   generateTestObjects,
 } from "../helper/generator";
 import { ActivityTypes_E } from "../schemas/activity.schema";
+import { HeightUnitTypes, PreferenceTypes, WeightUnitTypes } from "../schemas/user.schema";
 import type { Payload } from "./payload.types";
+
+const positiveUser = {
+  preference: "WEIGHT",
+  weightUnit: "LBS",
+  heightUnit: "INCH",
+  weight: 75,
+  height: 167,
+  name: generateRandomName(),
+  imageUri: ""
+}
 
 const positiveFile = {
   path: "img-8kb.jpeg"
@@ -37,6 +49,48 @@ const positiveActivityUpdate = {
 };
 
 export const payloads: Record<string, Payload> = {
+  userPreference: {
+    positive: positiveUser,
+    negative: generateTestObjects({
+      preference: {
+        type: "string",
+        enum: PreferenceTypes,
+        notNull: true
+      },
+      weightUnit: {
+        type: "string",
+        enum: WeightUnitTypes,
+        notNull: true
+      },
+      heightUnit: {
+        type: "string",
+        enum: HeightUnitTypes,
+        notNull: true
+      },
+      weight: {
+        type: "number",
+        min: 10,
+        max: 1000,
+        notNull: true
+      },
+      height: {
+        type: "number",
+        min: 3,
+        max: 250,
+        notNull: true
+      },
+      name: {
+        type: "string",
+        minLength: 2,
+        maxLength: 60,
+        notNull: false
+      },
+      imageUri: {
+        type: "string",
+        notNull: false
+      }
+    }, positiveUser),
+  },
   fileHuge: {
     positive: hugeFile,
     negative: generateTestObjects({
