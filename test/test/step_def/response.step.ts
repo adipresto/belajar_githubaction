@@ -112,6 +112,44 @@ Then(
 );
 
 Then(
+  "{string} value is equal to saved {word}",
+  function(this: ApiWorld, path: string, name: string) {
+    if (!this.jsonBody)
+      throw new Error("jsonBody is empty. Did you validate schema first?");
+
+    const actual = get(this.jsonBody, path);
+
+    const expected = this.savedPayload[name];
+
+    if (expected === undefined) {
+      throw new Error(`Expected '${name}' to exist in tokens or savedPayload`);
+    }
+
+    assert.strictEqual(
+      actual,
+      expected,
+      `Expected value at path '${path}' to equal '${expected}', but got '${actual}'`,
+    );
+  },
+);
+
+Then(
+  "{string} value is null",
+  function(this: ApiWorld, path: string) {
+    if (!this.jsonBody)
+      throw new Error("jsonBody is empty. Did you validate schema first?");
+
+    const actual = get(this.jsonBody, path);
+
+    assert.strictEqual(
+      actual,
+      null,
+      `Expected value at path '${path}' to null, but got '${actual}'`,
+    );
+  },
+);
+
+Then(
   "the fetched data total are {int} datas", async function(this: ApiWorld, expectedCount: number) {
     if (!this.lastSchemaName)
       throw new Error("No schema name found in World");
