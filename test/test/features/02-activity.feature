@@ -95,7 +95,7 @@ Feature: User manage their activities
     And I set a bearer authentication header with tokenNegativeScenario value
     And I use activity payload
     And send
-    Then the response should be 401
+    Then the response should be 404
 
   Scenario: With other account, I must not able to update activity isn't mine
     Given tokenNegativeScenario exists
@@ -106,10 +106,9 @@ Feature: User manage their activities
     And send
     Then the response should be 404
 
-  Scenario: I didn't have account, but I supposed to not able to delete
-    Given tokenNegativeScenario exists
+  Scenario: I didn't have account, but I supposed to not able to patch
     When I prepare a PATCH request to "/v1/activity/" with saved value targetActivityIdToDeleteFromOtherAccount
-    And I set a bearer authentication header with tokenNegativeScenario value
+    And I set a bearer authentication header with false token
     And I use activity payload
     And send
     Then the response should be 401

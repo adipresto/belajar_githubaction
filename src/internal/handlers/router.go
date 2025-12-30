@@ -36,7 +36,7 @@ func SetupRouter(cfg *config.Config, db *sqlx.DB, app *fiber.App) {
 	authRouter.Post("/login", authHandler.Login)
 	authRouter.Post("/register", authHandler.Register)
 
-	handleAuthorization := jwt.Middleware(cfg.JwtSecret)
+	handleAuthorization := jwt.Middleware(cfg.JwtSecret, db)
 
 	activityRepository := activityRepository.NewActivityRepository(db)
 	activityUseCase := activityUseCase.NewUseCase(activityRepository)
